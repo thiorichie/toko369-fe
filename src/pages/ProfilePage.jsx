@@ -98,7 +98,7 @@ function ProfilePage() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar showSearchBar={false}/>
       <div className="container mt-5 d-flex justify-content-center">
         <style>
           {`

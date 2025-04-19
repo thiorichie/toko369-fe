@@ -9,9 +9,15 @@ import { useNavigate } from "react-router-dom";
 function CartPage() {
   const [cartItems, setCartItems] = useState({ items: [] });
   const [paymentMethod, setPaymentMethod] = useState("COD");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState();
+  const [onSearch, setOnSearch] = useState();
   const navigate = useNavigate();
+  const [userRole, setUserRole] = useState();
 
   const load = async () => {
+    const verifyToken = await axios.get("https://toko369-be-production.up.railway.app/api/auth/verifyUser", {withCredentials: true});
+    setUserRole(verifyToken.data.role);
     try {
       const res = await axios.get("https://toko369-be-production.up.railway.app/api/cart/fetch", {
         withCredentials: true,
@@ -185,7 +191,8 @@ function CartPage() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar setSelectedCategory={setSelectedCategory} setSearchQuery={setSearchQuery} setOnSearch={setOnSearch} showSearchBar={false} userRole={userRole}/>
+
       <div className="container my-5">
         <style>
           {`
@@ -212,9 +219,9 @@ function CartPage() {
           `}
         </style>
 
-        <h2 className="mb-4 text-center">Your Cart</h2>
+        <h2 className="mb-4 text-center">Keranjang Kamu</h2>
         {cartItems.items.length === 0 ? (
-          <p className="text-center">Your cart is empty.</p>
+          <p className="text-center">Keranjang kamu kosong nih! Yuk, isi keranjang kamu dengan produk <strong>Toko 369</strong>.. Untuk menambah barang, kamu bisa search nama produk atau tekan tombol Daftar Produk</p>
         ) : (
           <div className="row">
             <div className="col-lg-8 col-md-12">
@@ -223,6 +230,7 @@ function CartPage() {
                   <div className="row align-items-center">
                     <div className="col-6 col-sm-4">
                       <h5 className="mb-1">{item.name}</h5>
+                      <p className="mb-1 text-muted"><strong>Unit: {item.unit}</strong></p>
                       <p className="mb-0 text-muted">
                         Price: Rp {item.price.toLocaleString()}
                       </p>

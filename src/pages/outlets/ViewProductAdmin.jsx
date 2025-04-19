@@ -116,7 +116,8 @@ const ProductViewAdvanced = () => {
     setValue('product_id', product.product_id)
     setValue('name', product.name);
     setValue('stock', product.stock);
-    setValue('category_id', product.category_id); // untuk default kategori
+    setValue('category_id', product.category_id);
+    setValue('image_link', product.image_link) // untuk default kategori
     // setValue('units', product.units);
     setOpenEdit(true);
   };
@@ -189,8 +190,29 @@ const ProductViewAdvanced = () => {
     }
   };  
 
-  const handleDelete = (productId) => {
-    setProducts((prev) => prev.filter((prod) => prod.product_id !== productId));
+  const handleDelete = async (productId) => {
+    // setProducts((prev) => prev.filter((prod) => prod.product_id !== productId));
+    const confirm = await Swal.fire({
+      title: 'Yakin ingin menghapus produk ini?',
+      text: 'Data produk akan dihilangkan dari database.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal',
+    });
+
+    if(confirm.isConfirmed){
+      await axios.delete(`https://toko369-be-production.up.railway.app/api/product/delete/${productId}`, {withCredentials: true});
+      load();
+      await Swal.fire({
+        icon: 'success',
+        title: 'Produk berhasil dihapus!',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    }
   };
 
   const toggleStatus = async (productId) => {
@@ -414,6 +436,7 @@ const ProductViewAdvanced = () => {
         <Typography variant="h6" gutterBottom>Tambah Produk Baru</Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
           <TextField label="Name" {...register('name', { required: true })} size="small" />
+          <TextField label="Link Product Image" {...register('image_link', { required: true })} size="small" />
           <TextField label="Stock" type="number" {...register('stock', { required: true })} size="small" />
           <FormControl size="small" sx={{ minWidth: 150 }}>
             <InputLabel>Category</InputLabel>
@@ -556,6 +579,14 @@ const ProductViewAdvanced = () => {
               fullWidth
               sx={{ mb: 2 }}
             />
+            
+            <TextField
+            label="Link Product Image"
+            {...registerEdit('image_link')}
+            size="small"
+            fullWidth
+            sx={{ mb: 2 }}
+          />
 
             {/* Dropdown Kategori */}
             <FormControl fullWidth sx={{ mb: 2 }} size="small">

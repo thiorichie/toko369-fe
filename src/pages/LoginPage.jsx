@@ -20,7 +20,7 @@ function LoginPage() {
         navigate('/admin');
       }
       else {
-        navigate('/home');
+        navigate('/catalog');
       }
     }
     catch (e){
@@ -36,7 +36,7 @@ function LoginPage() {
           navigate('/admin')
         }
         else{
-          navigate('/home')
+          navigate('/catalog')
         }
       })
       .catch(e=>{

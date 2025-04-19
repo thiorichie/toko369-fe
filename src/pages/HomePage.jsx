@@ -4,6 +4,7 @@ import DropdownCategories from './components/DropdownCategories'
 import Catalog from './components/Catalog'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import SearchBar from './components/SearchBar';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ function HomePage() {
   const [dataProduct, setDataProduct] = useState([]);
   const [dataCategory, setDataCategory] = useState([]);
   const [dataCart, setDataCart] = useState();
+  const [onSearch, setOnSearch] = useState(false);
+  const [productExist, setProductExist] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -42,9 +45,10 @@ function HomePage() {
 
   return (
     <div>
-      <Navbar setSearchQuery={setSearchQuery} userRole={userRole}/>
-      <DropdownCategories setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory} dataCategory={dataCategory}/>
-      <Catalog searchQuery={searchQuery} selectedCategory={selectedCategory} dataProduct={dataProduct}/>
+      <Navbar setSearchQuery={setSearchQuery} setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory} setOnSearch={setOnSearch} userRole={userRole}/>
+      <SearchBar setSearchQuery={setSearchQuery} setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory} setOnSearch={setOnSearch}/>
+      {productExist && <DropdownCategories setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory} dataCategory={dataCategory}/>}
+      <Catalog searchQuery={searchQuery} selectedCategory={selectedCategory} dataProduct={dataProduct} setOnSearch={setOnSearch} onSearch={onSearch} setProductExist={setProductExist}/>
     </div>
   )
 }

@@ -26,7 +26,7 @@ function AdminPage() {
         if(response.data.role != "admin")
         {
           alert('Anda tidak memiliki akses ke halaman ini!');
-          navigate('/home')
+          navigate('/catalog')
         }
       })
       .catch(e => {
@@ -105,7 +105,7 @@ function AdminPage() {
           <li className="nav-item">
             <button
               className="btn btn-dark w-100 text-start"
-              onClick={() => handleNav("/home")}
+              onClick={() => handleNav("/catalog")}
             >
               Go to HomePage
             </button>

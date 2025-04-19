@@ -22,7 +22,6 @@ const CheckTransactionPage = () => {
       try {
         // 3. Filter hanya transaksi milik user
         const myTrans = await axios.get('https://toko369-be-production.up.railway.app/api/transaction/fetch/customer', {withCredentials:true});
-        console.log(myTrans.data)
         setTransactions(myTrans.data);
       } catch (err) {
         alert(e.response?.data?.message + " Hubungi admin apabila error!");
@@ -50,7 +49,7 @@ const CheckTransactionPage = () => {
 
   return (
     <>
-      <Navbar setSearchQuery={()=>{}} userRole="customer" />
+      <Navbar showSearchBar={false}/>
 
       <Container className="my-4">
         <h3 className="mb-4">Riwayat Transaksi Anda</h3>
