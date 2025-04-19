@@ -254,6 +254,8 @@ const DetailTransactionAdmin = () => {
           ))}
         </tbody>
       </Table>
+      <h5>Catatan dari Customer:</h5>
+      <h6 style={{color: "red"}}>{transaction.note}</h6>
       <h5>Total Transaksi: Rp {getTotal().toLocaleString('id-ID')}</h5>
 
       {transaction.status === 'Pending' && (
