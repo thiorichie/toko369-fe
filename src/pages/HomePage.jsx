@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import CartPage from './CartPage';
 import { Offcanvas } from 'react-bootstrap';
-import './css/HomePage.css'; // tambahkan ini agar custom CSS digunakan
+import './css/HomePage.css'; // custom styling
 
 function HomePage() {
   const navigate = useNavigate();
@@ -22,6 +22,23 @@ function HomePage() {
   const [loadData, setLoadData] = useState(false);
   const [showCart, setShowCart] = useState(false);
 
+  // Fungsi untuk update cart
+  const updateCart = async () => {
+    try {
+      const cartRes = await axios.get(
+        "https://toko369-be-production.up.railway.app/api/cart/fetch",
+        { withCredentials: true }
+      );
+      setDataCart({
+        user_id: cartRes.data.user_id,
+        items: cartRes.data.items.map(i => ({ ...i, quantity: i.quantity || 1 }))
+      });
+    } catch (e) {
+      console.error("Error fetching cart:", e);
+    }
+  };
+
+  // Load produk dan kategori awal + verifikasi user
   useEffect(() => {
     const loadInitial = async () => {
       try {
@@ -57,22 +74,9 @@ function HomePage() {
     loadInitial();
   }, [navigate]);
 
+  // Update cart setiap loadData berubah
   useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        const cartRes = await axios.get(
-          "https://toko369-be-production.up.railway.app/api/cart/fetch",
-          { withCredentials: true }
-        );
-        setDataCart({
-          user_id: cartRes.data.user_id,
-          items: cartRes.data.items.map(i => ({ ...i, quantity: i.quantity || 1 }))
-        });
-      } catch (e) {
-        console.error("Error fetching cart:", e);
-      }
-    };
-    fetchCart();
+    updateCart();
   }, [loadData]);
 
   return (
@@ -109,6 +113,7 @@ function HomePage() {
         setOnSearch={setOnSearch}
         setProductExist={setProductExist}
         setLoadData={prev => setLoadData(!prev)}
+        updateCart={updateCart}
       />
 
       {/* Spacer untuk menghindari tumpang tindih tombol keranjang */}
@@ -136,7 +141,11 @@ function HomePage() {
           <Offcanvas.Title>Keranjang Kamu</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body style={{ maxHeight: '85vh', overflowY: 'auto' }}>
-          <CartPage loadData={loadData} setLoadData={setLoadData} />
+          <CartPage
+            loadData={loadData}
+            setLoadData={setLoadData}
+            updateCart={updateCart}
+          />
         </Offcanvas.Body>
       </Offcanvas>
     </>

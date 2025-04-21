@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import { useNavigate } from "react-router-dom";
 
-function CartPage({loadData, setLoadData}) {
+function CartPage({loadData, setLoadData, updateCart}) {
   const [cartItems, setCartItems] = useState({ items: [] });
   const [paymentMethod, setPaymentMethod] = useState("COD");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -50,6 +50,7 @@ function CartPage({loadData, setLoadData}) {
         showConfirmButton: false,
         customClass: { popup: 'rounded-4' }
       });
+      updateCart();
     } catch (e) {
       console.log(e)
       Swal.fire({
@@ -94,6 +95,7 @@ function CartPage({loadData, setLoadData}) {
           }
         });
         load()
+        updateCart();
       } catch (e) {
         Swal.fire({
           icon: 'error',
@@ -129,7 +131,7 @@ function CartPage({loadData, setLoadData}) {
         item.product_id === id ? { ...item, quantity: newQuantity } : item
       )
     }));
-
+    updateCart();
     try {
       await axios.put(`https://toko369-be-production.up.railway.app/api/cart/item/${id}/quantity`, { quantity: newQuantity }, { withCredentials: true });
     } catch (e) {
@@ -183,6 +185,7 @@ function CartPage({loadData, setLoadData}) {
           showConfirmButton: false,
           customClass: { popup: 'rounded-4' }
         });
+        updateCart();
       } catch (e) {
         Swal.fire({
           icon: 'error',
@@ -199,6 +202,7 @@ function CartPage({loadData, setLoadData}) {
   useEffect(() => {
     load();
     setLoadData(false);
+    updateCart();
   }, [, loadData]);
 
   return (

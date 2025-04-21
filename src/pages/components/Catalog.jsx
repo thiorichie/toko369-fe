@@ -13,7 +13,8 @@ function Catalog({
   onSearch,
   setOnSearch,
   setProductExist,
-  setLoadData
+  setLoadData,
+  updateCart
 }) {
   const [searchResults, setSearchResults] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -104,7 +105,6 @@ function Catalog({
           total: unitData.price * i.quantity,
         };
       });
-
     try {
       await axios.post(
         "https://toko369-be-production.up.railway.app/api/cart/add",
@@ -121,6 +121,7 @@ function Catalog({
       });
       setLoadData(true);
       reset();
+      updateCart();
     } catch (e) {
       alert(e.response?.data?.message || e.message);
     }
