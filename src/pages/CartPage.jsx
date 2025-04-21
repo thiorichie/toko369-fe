@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import { useNavigate } from "react-router-dom";
 
-function CartPage() {
+function CartPage({loadData, setLoadData}) {
   const [cartItems, setCartItems] = useState({ items: [] });
   const [paymentMethod, setPaymentMethod] = useState("COD");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -198,11 +198,12 @@ function CartPage() {
 
   useEffect(() => {
     load();
-  }, []);
+    setLoadData(false);
+  }, [, loadData]);
 
   return (
     <div>
-      <Navbar setSelectedCategory={setSelectedCategory} setSearchQuery={setSearchQuery} setOnSearch={setOnSearch} showSearchBar={false} userRole={userRole} />
+      {/* <Navbar setSelectedCategory={setSelectedCategory} setSearchQuery={setSearchQuery} setOnSearch={setOnSearch} showSearchBar={false} userRole={userRole} /> */}
 
       <div className="container my-5">
         <style>{`

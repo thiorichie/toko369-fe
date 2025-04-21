@@ -1,0 +1,18 @@
+/* HomePage.css */
+
+.sticky-cart-btn {
+    width: 100%;
+    border-radius: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  @media (min-width: 992px) {
+    .sticky-cart-btn {
+      width: 400px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 12px 12px 0 0;
+    }
+  }
+  

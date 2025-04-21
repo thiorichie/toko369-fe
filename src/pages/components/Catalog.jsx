@@ -13,6 +13,7 @@ function Catalog({
   onSearch,
   setOnSearch,
   setProductExist,
+  setLoadData
 }) {
   const [searchResults, setSearchResults] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -118,6 +119,8 @@ function Catalog({
         showConfirmButton: false,
         customClass: { popup: "rounded-4" },
       });
+      setLoadData(true);
+      reset();
     } catch (e) {
       alert(e.response?.data?.message || e.message);
     }

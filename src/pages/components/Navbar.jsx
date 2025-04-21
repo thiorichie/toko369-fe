@@ -105,18 +105,7 @@ const Navbar = ({
               onMouseOut={(e)=>{e.currentTarget.style.backgroundColor="lightgray"; e.currentTarget.style.color="black"}}
               onClick={()=>navigate("/catalog")}
             >
-              <FaHome className="fs-5 me-2" /> List Product
-            </button>
-
-            {/* Daftar Produk */}
-            <button
-              className="btn rounded-pill shadow-sm border-0 px-3"
-              style={{ backgroundColor: "lightgray", transition: "all 0.3s" }}
-              onMouseOver={(e)=>{e.currentTarget.style.backgroundColor="black"; e.currentTarget.style.color="white"}}
-              onMouseOut={(e)=>{e.currentTarget.style.backgroundColor="lightgray"; e.currentTarget.style.color="black"}}
-              onClick={()=>navigate("/cart")}
-            >
-              <i className="bi bi-cart3 fs-5 me-2"></i> Keranjang
+              <FaHome className="fs-5 me-2" /> List Product & Keranjang
             </button>
 
             {/* Cek Transaksi */}
