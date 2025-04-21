@@ -73,7 +73,7 @@ function LoginPage() {
           className="text-center mb-4"
           style={{ fontFamily: 'Poppins, sans-serif', color: '#333' }}
         >
-          Toko 369
+          Toko Gading Murni
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>

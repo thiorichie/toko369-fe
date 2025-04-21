@@ -64,7 +64,7 @@ const Navbar = ({
       <div className="container-fluid">
         <a className="navbar-brand fw-bold fs-3 text-black"
            style={{ fontFamily: "Cormorant Garamond, serif" }}>
-          Toko 369
+          Toko Gading Murni
         </a>
 
         <button className="navbar-toggler" type="button"

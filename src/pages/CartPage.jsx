@@ -237,7 +237,7 @@ function CartPage({loadData, setLoadData, updateCart}) {
         <h2 className="mb-4 text-center">Keranjang Kamu</h2>
 
         {cartItems.items.length === 0 ? (
-          <p className="text-center">Keranjang kamu kosong nih! Yuk, isi keranjang kamu dengan produk <strong>Toko 369</strong>..</p>
+          <p className="text-center">Keranjang kamu kosong nih! Yuk, isi keranjang kamu dengan produk <strong>Toko Gading Murni</strong>..</p>
         ) : (
           <div className="row">
             <div className="col-lg-8 col-md-12">

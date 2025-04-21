@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Settings() {
   const [profile, setProfile] = useState({
-    namaToko: "Toko 369", // ini statis
+    namaToko: "Toko Gading Murni", // ini statis
     username: "",
     password: "",
   });
